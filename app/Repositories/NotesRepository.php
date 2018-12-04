@@ -13,6 +13,8 @@ use App\Note;
 
 class NotesRepository implements RepositoryInterface
 {
+    protected $model;
+    
     public function __construct(Note $note)
     {
         $this->model = $note;
