@@ -4,7 +4,7 @@ Notes APP is a RESTfull API which is allowing users to create, read, update and 
 
 ## Used Technologies
 - PHP
-- Lumen PHP Micro-Framework By Laravel
+- Lumen 5.7 ()PHP Micro-Framework By Laravel)
 - MySQL
 - RESTful API
 
@@ -91,3 +91,6 @@ curl -XDELETE -H 'Authorization: bearer {api_key}' -H "Content-type: application
 
 There was a bonus point to use Docker, but my enviroment was WIndows 10 Home Editiion and Docker is not working on home edition.
 I don't see any problems using docker and have used it before.
+
+Also I wanted to use Oauth 2.0 Bearer Token for authentications, but I did not find proper lib for it. 
+The existing some sources were depricated for Lumen 5.7. I met such problem before with Lumen 5.2 and I customized the oauth to work with the Lumen version, such customisation would take some time therefore I decide to implement simple authentication.
