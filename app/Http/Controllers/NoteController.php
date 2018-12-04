@@ -69,11 +69,30 @@ class NoteController extends Controller
 
     public function delete($id)
     {
-
+        $userId = Auth::user()->id;
+        if ($this->note->delete($id, $userId)) {
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'fail']);
     }
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'string|required|max:50',
+            'note' => 'string|required|max:1000',
+        ]);
 
+        $userId = Auth::user()->id;
+
+        $result = $this->note->update([
+            'title' => $request->json()->get('title'),
+            'note' => $request->json()->get('note')
+        ], $id, $userId);
+
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'fail']);
     }
 }
