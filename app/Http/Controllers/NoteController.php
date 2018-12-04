@@ -29,16 +29,22 @@ class NoteController extends Controller
             'title' => 'string|required|max:50',
             'note' => 'string|required|max:1000',
         ]);
-        
+
         $userId = Auth::user()->id;
         $title = $request->json()->get('title');
         $note = $request->json()->get('note');
 
-        return $this->note->create([
+        $note = $this->note->create([
             'title' => $title,
             'note' => $note,
             'user_id' => $userId,
         ]);
+
+        if ($note) {
+            return response()->json(['status' => 'success', 'note' => $note]);
+        }
+        
+        return response()->json(['status' => 'fail']);
     }
 
     public function get($noteId)
