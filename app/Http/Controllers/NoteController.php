@@ -43,7 +43,7 @@ class NoteController extends Controller
         if ($note) {
             return response()->json(['status' => 'success', 'note' => $note]);
         }
-        
+
         return response()->json(['status' => 'fail']);
     }
 
