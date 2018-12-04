@@ -14,3 +14,15 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('notes', ['uses' => 'NoteController@getAll']);
+
+    $router->get('notes/{id}', ['uses' => 'NoteController@get']);
+
+    $router->post('notes', ['uses' => 'NoteController@create']);
+
+    $router->delete('notes/{id}', ['uses' => 'NoteController@delete']);
+
+    $router->put('notes/{id}', ['uses' => 'NoteController@update']);
+});
