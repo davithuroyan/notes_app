@@ -47,3 +47,37 @@ $ php artisan migrate
 ```sh 
 php -S localhost:8000 -t public
 ```
+
+### How to make requests
+
+#### Authentication
+```sh
+curl -XGET -H "Content-type: application/json" 'http://localhost:8000/api/login?email=davithuroyan2@gmail.com&password=123456'
+```
+
+Copy api_key and use in requests below
+
+#### Create New Note
+```sh
+curl -XPOST -H 'Authorization: bearer {api_key}' -H "Content-type: application/json" -d '{ "title":"note title", "note":"note content" }' 'http://localhost:8000/api/notes''
+```
+
+#### Get Note By Id
+```sh
+curl -XGET -H 'Authorization: bearer {api_key}' -H "Content-type: application/json" http://localhost:8000/api/notes/{note_id}'
+```
+
+#### Get All user Notes
+```sh
+curl -XGET -H 'Authorization: bearer {api_key}' -H "Content-type: application/json" 'http://localhost:8000/api/notes'
+```
+
+#### Update Note
+```$sh
+curl -XPUT -H 'Authorization: bearer {api_key}' -H "Content-type: application/json" -d '{ "title":"note title", "note":"note content" }' 'http://localhost:8000/api/notes/{note_id}'
+```
+
+#### Delete Note
+```sh
+curl -XDELETE -H 'Authorization: bearer {api_key}' -H "Content-type: application/json" 'http://localhost:8000/api/notes/{note_id}'
+```
