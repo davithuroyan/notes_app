@@ -40,4 +40,9 @@ class UserService implements ServiceInterface
         $email = $request->input('email');
         return $this->user->getByEmail($email);
     }
+
+    public function update(array $attributes, int $id)
+    {
+        return $this->user->update($attributes, $id);
+    }
 }

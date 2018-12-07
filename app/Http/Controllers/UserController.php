@@ -28,7 +28,8 @@ class UserController extends Controller
         if ($user && Hash::check($request->input('password'), $user->password)) {
 
             $apiKey = base64_encode(str_random(40));
-            $user->update(['api_key' => "$apiKey"]);
+            $this->userService->update(['api_key' => "$apiKey"], $user->id);
+
 
             return response()->json(['status' => 'success', 'api_key' => $apiKey]);
         } else {

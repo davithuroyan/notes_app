@@ -13,6 +13,12 @@ use App\User;
 
 class UserRepository implements RepositoryInterface
 {
+    protected $model;
+
+    public function __construct(User $model)
+    {
+        $this->model = $model;
+    }
 
     public function all(int $userId)
     {
@@ -24,9 +30,9 @@ class UserRepository implements RepositoryInterface
 
     }
 
-    public function update(array $data, int $id, int $userId)
+    public function update(array $data, int $id, int $userId = null): bool
     {
-
+        return $this->model->where('id', $id)->update($data);
     }
 
     public function delete(int $id, int $userId)
@@ -45,6 +51,6 @@ class UserRepository implements RepositoryInterface
      */
     public function getByEmail(string $email): User
     {
-        return User::where('email', $email)->first();
+        return $this->model->where('email', $email)->first();
     }
 }
