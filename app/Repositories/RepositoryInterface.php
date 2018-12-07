@@ -11,13 +11,13 @@ namespace App\Repositories;
 
 interface RepositoryInterface
 {
-    public function all($userId);
+    public function all(int $userId);
 
     public function create(array $data);
 
-    public function update(array $data, $id, $userId);
+    public function update(array $data, int $id, int $userId);
 
-    public function delete($id, $userId);
+    public function delete(int $id, int $userId);
 
-    public function get($id, $userId);
+    public function get(int $id, int $userId);
 }
