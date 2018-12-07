@@ -54,6 +54,12 @@ $ php artisan migrate
 php -S localhost:8000 -t public
 ```
 
+#### Create Test Users
+Run following command to create user with random email and with 123456 test password
+```sh
+php artisan db:seed
+```
+
 ### How to make requests
 
 #### Authentication
