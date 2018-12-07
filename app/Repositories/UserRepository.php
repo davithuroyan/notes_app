@@ -20,29 +20,9 @@ class UserRepository implements RepositoryInterface
         $this->model = $model;
     }
 
-    public function all(int $userId)
-    {
-
-    }
-
-    public function create(array $data)
-    {
-
-    }
-
-    public function update(array $data, int $id, int $userId = null): bool
+    public function update(array $data, int $id): bool
     {
         return $this->model->where('id', $id)->update($data);
-    }
-
-    public function delete(int $id, int $userId)
-    {
-
-    }
-
-    public function get(int $id, int $userId)
-    {
-
     }
 
     /**
