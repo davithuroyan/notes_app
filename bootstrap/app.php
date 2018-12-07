@@ -48,8 +48,8 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-
 $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
