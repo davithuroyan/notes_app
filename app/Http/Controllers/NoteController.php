@@ -36,17 +36,19 @@ class NoteController extends Controller
     public function get($noteId)
     {
         $userId = Auth::user()->id;
-        $note = $this->note->get($noteId, $userId);
+        $note = $this->noteService->get($noteId, $userId);
+
         if ($note) {
             return response()->json(['status' => 'success', 'note' => $note]);
         }
         return response()->json(['status' => 'fail']);
     }
 
-    public function getAll()
+    public function all()
     {
         $userId = Auth::user()->id;
-        $notes = $this->note->all($userId);
+        $notes = $this->noteService->all($userId);
+
         if (!empty($notes)) {
             return response()->json(['status' => 'success', 'notes' => $notes]);
         }

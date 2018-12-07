@@ -69,4 +69,22 @@ class NoteService
         $attributes = $request->all();
         return $this->note->update($attributes, $id, $userId);
     }
+    /**
+     * @param int $id
+     * @param int $userId
+     * @return mixed
+     */
+    public function get(int $id, int $userId)
+    {
+        return $this->note->get($id, $userId);
+    }
+
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public function all(int $userId)
+    {
+        return $this->note->all($userId);
+    }
 }
