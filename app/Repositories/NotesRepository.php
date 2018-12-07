@@ -14,40 +14,68 @@ use App\Note;
 class NotesRepository implements RepositoryInterface
 {
     protected $model;
-    
+
+    /**
+     * NotesRepository constructor.
+     * @param Note $note
+     */
     public function __construct(Note $note)
     {
         $this->model = $note;
     }
 
-    public function all($userId)
+    /**
+     * @param int $userId
+     * @return mixed
+     */
+    public function all(int $userId)
     {
         return $this->model->where(['user_id' => $userId])->get();
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
         return $this->model->create($data);
     }
 
-    public function update(array $data, $id, $userId)
+    /**
+     * @param array $data
+     * @param int $id
+     * @param int $userId
+     * @return mixed
+     */
+    public function update(array $data, int $id, int $userId)
     {
         $note = $this->get($id, $userId);
+        if (!$note) {
+            return false;
+        }
 
         $note->title = $data['title'];
         $note->note = $data['note'];
         return $note->save();
     }
 
-    public function delete($id, $userId)
+    /**
+     * @param int $id
+     * @param int $userId
+     * @return string
+     */
+    public function delete(int $id, int $userId): bool
     {
-        if ($this->model->where(['id' => $id, 'user_id' => $userId])->delete()) {
-            return "success";
-        }
-        return "false";
+        return $this->model->where(['id' => $id, 'user_id' => $userId])->delete();
     }
 
-    public function get($id, $userId)
+    /**
+     * @param int $id
+     * @param int $userId
+     * @return mixed
+     */
+    public function get(int $id, int $userId)
     {
         return $this->model->where(['id' => $id, 'user_id' => $userId])->first();
     }

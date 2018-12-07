@@ -8,38 +8,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Note;
-use App\Repositories\NotesRepository;
+use App\Services\NoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
-    protected $note;
+    protected $noteService;
 
-    public function __construct(Note $note)
+    public function __construct(NoteService $service)
     {
         $this->middleware('auth');
-        $this->note = new NotesRepository($note);
+        $this->noteService = $service;
     }
 
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'string|required|max:50',
-            'note' => 'string|required|max:1000',
-        ]);
-
         $userId = Auth::user()->id;
-        $title = $request->json()->get('title');
-        $note = $request->json()->get('note');
-
-        $note = $this->note->create([
-            'title' => $title,
-            'note' => $note,
-            'user_id' => $userId,
-        ]);
-
+        $note = $this->noteService->create($request, $userId);
         if ($note) {
             return response()->json(['status' => 'success', 'note' => $note]);
         }
