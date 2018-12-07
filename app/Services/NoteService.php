@@ -10,20 +10,20 @@ namespace App\Services;
 
 
 use App\Note;
-use App\Repositories\NotesRepository;
+use App\Repositories\RepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use \Exception;
 
-class NoteService
+class NoteService implements ServiceInterface
 {
     protected $note;
 
     /**
      * NoteService constructor.
-     * @param NotesRepository $note
+     * @param RepositoryInterface $note
      */
-    public function __construct(NotesRepository $note)
+    public function __construct(RepositoryInterface $note)
     {
         $this->note = $note;
     }
@@ -69,7 +69,7 @@ class NoteService
         $attributes = $request->all();
         return $this->note->update($attributes, $id, $userId);
     }
-    
+
     /**
      * @param int $id
      * @param int $userId

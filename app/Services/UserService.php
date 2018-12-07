@@ -8,16 +8,16 @@
 
 namespace App\Services;
 
-use App\Repositories\UserRepository;
+use App\Repositories\RepositoryInterface;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserService
+class UserService implements ServiceInterface
 {
     protected $user;
 
-    public function __construct(UserRepository $user)
+    public function __construct(RepositoryInterface $user)
     {
         $this->user = $user;
     }

@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\NoteService;
+use App\Services\ServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class NoteController extends Controller
 {
     protected $noteService;
 
-    public function __construct(NoteService $service)
+    public function __construct(ServiceInterface $service)
     {
         $this->middleware('auth');
         $this->noteService = $service;
