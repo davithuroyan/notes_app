@@ -9,37 +9,31 @@
 namespace App\Http\Controllers;
 
 
-use App\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
     }
 
     public function authenticate(Request $request)
     {
-        $this->validate($request, [
-            "email" => 'required',
-            "password" => 'required',
-        ]);
-
-        $user = User::where('email', $request->input('email'))->first();
+        $user = $this->userService->getByEmail($request);
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
 
-            $apikey = base64_encode(str_random(40));
+            $apiKey = base64_encode(str_random(40));
+            $user->update(['api_key' => "$apiKey"]);
 
-            User::where('email', $request->input('email'))->update(['api_key' => "$apikey"]);;
-
-            return response()->json(['status' => 'success', 'api_key' => $apikey]);
-
+            return response()->json(['status' => 'success', 'api_key' => $apiKey]);
         } else {
-
             return response()->json(['status' => 'fail'], 401);
-
         }
     }
 }
