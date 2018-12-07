@@ -64,17 +64,9 @@ class NoteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'string|required|max:50',
-            'note' => 'string|required|max:1000',
-        ]);
-
         $userId = Auth::user()->id;
 
-        $result = $this->note->update([
-            'title' => $request->json()->get('title'),
-            'note' => $request->json()->get('note')
-        ], $id, $userId);
+        $result = $this->noteService->update($request, $id, $userId);
 
         if ($result) {
             return response()->json(['status' => 'success']);

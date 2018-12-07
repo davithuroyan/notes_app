@@ -48,4 +48,25 @@ class NoteService
         $attributes['user_id'] = $userId;
         return $this->note->create($attributes, $userId);
     }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @param int $userId
+     * @return bool
+     * @throws \Exception
+     */
+    public function update(Request $request, int $id, int $userId): bool
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'string|required|max:50',
+            'note' => 'string|required|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            throw  new Exception($validator->errors());
+        }
+        $attributes = $request->all();
+        return $this->note->update($attributes, $id, $userId);
+    }
 }
