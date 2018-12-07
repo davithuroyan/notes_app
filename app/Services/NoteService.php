@@ -69,6 +69,7 @@ class NoteService
         $attributes = $request->all();
         return $this->note->update($attributes, $id, $userId);
     }
+    
     /**
      * @param int $id
      * @param int $userId
@@ -86,5 +87,16 @@ class NoteService
     public function all(int $userId)
     {
         return $this->note->all($userId);
+    }
+
+
+    /**
+     * @param int $id
+     * @param int $userId
+     * @return string
+     */
+    public function delete(int $id, int $userId): bool
+    {
+        return $this->note->delete($id, $userId);
     }
 }

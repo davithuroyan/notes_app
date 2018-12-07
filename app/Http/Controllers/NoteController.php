@@ -58,7 +58,7 @@ class NoteController extends Controller
     public function delete($id)
     {
         $userId = Auth::user()->id;
-        if ($this->note->delete($id, $userId)) {
+        if ($this->noteService->delete($id, $userId)) {
             return response()->json(['status' => 'success']);
         }
         return response()->json(['status' => 'fail']);
